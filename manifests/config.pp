@@ -18,9 +18,11 @@ class dpdk::config (
   $socket_mem,
 ) {
 
-  $options = "-l ${core_list} -n ${memory_channels} --socket-mem ${socket_mem}"
-  notify {"KRS print in dpdk:config file with param \$options = ${options} passed": }
-  dpdk_config {
-    'DPDK_OPTIONS': value => $options
+  $options = 'DPDK_OPTIONS = "-l ${core_list} -n ${memory_channels} --socket-mem ${socket_mem}"'
+
+  file_line { 'dpdk_options':
+    path  => '/etc/sysconfig/openvswitch',
+    match => '^DPDP_OPTIONS.*',
+    line  => $options
   }
 }
