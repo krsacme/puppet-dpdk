@@ -18,11 +18,11 @@ class dpdk::config (
   $socket_mem,
 ) {
 
-  $options = 'DPDK_OPTIONS = "-l ${core_list} -n ${memory_channels} --socket-mem ${socket_mem}"'
+  $options = "DPDK_OPTIONS = \"-l ${core_list} -n ${memory_channels} --socket-mem ${socket_mem}\""
 
   file_line { 'dpdk_options':
     path  => '/etc/sysconfig/openvswitch',
-    match => '^DPDP_OPTIONS.*',
-    line  => $options
+    match => '^DPDK_OPTIONS.*',
+    line  => $options,
   }
 }
